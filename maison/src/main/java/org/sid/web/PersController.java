@@ -1,6 +1,6 @@
 package org.sid.web;
 
-import java.lang.ProcessBuilder.Redirect;
+import javax.validation.Valid;
 
 import org.sid.dao.PersRepository;
 import org.sid.entities.Pers;
@@ -9,14 +9,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PersController {
 	@Autowired
 	private PersRepository persRepository;
-
 	@GetMapping("/index")
 	public String index(Model model, 
 			@RequestParam(name = "page", defaultValue = "0") int page, 
@@ -31,7 +33,7 @@ public class PersController {
 		model.addAttribute("motCle", mc);
 		model.addAttribute("size", s);
 		
-		return "habitants";	
+		return "ListePers";	
 	}
 	
 	@GetMapping("/delete")
@@ -41,7 +43,20 @@ public class PersController {
 		//on supp et on fait une redirection vers la page index
 	}
 	
-}
+	@RequestMapping(value="/form", method=RequestMethod.GET)	
+	public String formPers(Model model) {
+		model.addAttribute("pers", new Pers());
+		return "SaisiePers";
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)	
+	public String formSavePers(Model model, @Valid Pers pers, BindingResult bindingResult) {
+		if (bindingResult.hasErrors())
+			return "SaisiePers";
+		persRepository.save(pers);
+		return "Confirmation";
+	}
+}// l'etape suivante est la gestion des layout voir video à la 37 min
 
 
 

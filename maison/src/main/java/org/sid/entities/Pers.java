@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Pers implements Serializable{
@@ -13,8 +17,16 @@ public class Pers implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotNull
+	@Size(min=2, max=50)
 	private String nom;
+	
+	@Size(max=50)
 	private String prenom;
+	
+	@NotNull
+	@Min(10)
 	private int age;
 	
 	public Pers(Long id, String nom, String prenom, int age) {

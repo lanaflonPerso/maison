@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Liste des personnes</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+						th:href="@{css/bootstrap.min.css}">
+</head>
+<body>
+	<div class="container">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Confirmation</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label>ID:</label>
+						<label th:text="${pers.id}"></label>
+					</div>
+					<div class="form-group">
+						<label>Nom:</label>
+						<label th:text="${pers.nom}"></label>
+					</div>
+					<div class="form-group">
+						<label>Prenom:</label>
+						<label th:text="${pers.prenom}"></label>
+					</div>
+					<div class="form-group">
+						<label>Age:</label>
+						<label th:text="${pers.age}"></label>
+					</div>
+				</div>
+		</div>		
+	</div>
+</body>
+</html>
