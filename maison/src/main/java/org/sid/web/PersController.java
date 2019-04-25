@@ -1,5 +1,7 @@
 package org.sid.web;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.sid.dao.PersRepository;
@@ -22,7 +24,7 @@ public class PersController {
 	@GetMapping("/index")
 	public String index(Model model, 
 			@RequestParam(name = "page", defaultValue = "0") int page, 
-			@RequestParam(name = "size", defaultValue = "6") int s,
+			@RequestParam(name = "size", defaultValue = "5") int s,
 			@RequestParam(name = "motCle", defaultValue = "") String mc) {
 			
 		Page<Pers> pagePers = 
@@ -47,6 +49,17 @@ public class PersController {
 	public String formPers(Model model) {
 		model.addAttribute("pers", new Pers());
 		return "SaisiePers";
+	}
+
+	@RequestMapping(value="/edit", method=RequestMethod.GET)	
+	public String edit(Model model, Long id) {
+		Optional<Pers> p = persRepository.findById(id);
+		  if(p.isPresent()) {					//si p n'est pas null on crée un objet Pers k j'initialise avec p et 
+			  									//que j'envois par la suite dans le formulaire via model.
+		  Pers pers = p.get();
+		  model.addAttribute("pers", pers);
+		  }
+		return "EditPers";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)	

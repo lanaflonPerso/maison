@@ -16,16 +16,25 @@
 	<div class="container">
 		<div class="spacer col-md-6 col-xs-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">Saisie des personnes</div>
+				<div class="panel-heading">Editer des personnes</div>
 				<div class="panel-body">
 					<form th:action="@{save}" method="post">
+						
+						<div class="form-group">
+							<div>
+								<label class="control-label">ID:</label>
+							</div>
+							<input class="control-control" type="text" name="id"
+								placeholder="votre id" th:value="${pers.id}" style="background-color: #FFFFFF;"/> 
+								<span class="red" th:errors="${pers.id}"></span>
+						</div>
 						<div class="form-group">
 							<div>
 								<label class="control-label">Nom:</label>
 							</div>
 							<input class="control-control" type="text" name="nom"
-								placeholder="votre nom" th:value="${pers.nom}" /> <span
-								class="red" th:errors="${pers.nom}"></span>
+								placeholder="votre nom" th:value="${pers.nom}" />
+								<span class="red" th:errors="${pers.nom}"></span>
 						</div>
 						<div class="form-group">
 							<div>
@@ -39,8 +48,8 @@
 								<label class="control-label">Age:</label>
 							</div>
 							<input class="control-control" type="text" name="age"
-								placeholder="votre age" th:value="${pers.age}" /> <span
-								th:errors="${pers.age}"></span>
+								placeholder="votre age" th:value="${pers.age}" />
+								<span th:errors="${pers.age}"></span>
 						</div>
 						<div>
 							<button class="btn btn-primary" type="submit">Save</button>
@@ -48,9 +57,8 @@
 					</form>
 				</div>
 			</div>
+			<div th:replace="layout/layout :: contenuBas"></div>
 		</div>
-
-		<div th:replace="layout/layout :: contenuBas"></div>
 
 	</div>
 
