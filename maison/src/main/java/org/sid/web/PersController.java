@@ -21,14 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PersController {
 	@Autowired
 	private PersRepository persRepository;
-	@GetMapping("/index")
+	@GetMapping("/user/index")
 	public String index(Model model, 
 			@RequestParam(name = "page", defaultValue = "0") int page, 
 			@RequestParam(name = "size", defaultValue = "5") int s,
 			@RequestParam(name = "motCle", defaultValue = "") String mc) {
 			
 		Page<Pers> pagePers = 
-				persRepository.findByNom(mc, PageRequest.of(page, s));
+				persRepository.findByNomContains(mc, PageRequest.of(page, s));
 		model.addAttribute("listPers", pagePers.getContent());
 		model.addAttribute("pages", new int[pagePers.getTotalPages()]);
 		model.addAttribute("currentPage", page);
@@ -38,21 +38,21 @@ public class PersController {
 		return "ListePers";	
 	}
 	
-	@GetMapping("/delete")
+	@GetMapping("/admin/delete")
 	public String delete(Long id, int page, String motCle) {	//pr supp il faut 3 param(le num, la page et le motCle en cours 
 		persRepository.deleteById(id);
-		return "redirect:/index?page="+page+"&motCle="+motCle;
+		return "redirect:/user/index?page="+page+"&motCle="+motCle;
 		//on supp et on fait une redirection vers la page index
 	}
 	
-	@RequestMapping(value="/form", method=RequestMethod.GET)	
+	@RequestMapping(value="/admin/form", method=RequestMethod.GET)	
 	public String formPers(Model model) {
 		model.addAttribute("pers", new Pers());
 		return "SaisiePers";
 	}
 
-	@RequestMapping(value="/edit", method=RequestMethod.GET)	
-	public String edit(Model model, Long id) {
+	@RequestMapping(value="/admin/edit", method=RequestMethod.GET)	
+	public String formEditPers(Model model, Long id) {
 		Optional<Pers> p = persRepository.findById(id);
 		  if(p.isPresent()) {					//si p n'est pas null on crée un objet Pers k j'initialise avec p et 
 			  									//que j'envois par la suite dans le formulaire via model.
@@ -62,14 +62,29 @@ public class PersController {
 		return "EditPers";
 	}
 	
-	@RequestMapping(value="/save", method=RequestMethod.POST)	
+	@RequestMapping(value="/admin/save", method=RequestMethod.POST)	
 	public String formSavePers(Model model, @Valid Pers pers, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			return "SaisiePers";
 		persRepository.save(pers);
 		return "Confirmation";
 	}
-}// l'etape suivante est la gestion des layout voir video à la 37 min
+	
+	@RequestMapping("/")
+	public String home() {
+		return "redirect:/user/index";
+	}
+	
+	@RequestMapping("/403")
+	public String accesDenied() {
+		return "403";
+	}
+	
+	@RequestMapping("/404")
+	public String resourceNotFound() {
+		return "404";
+	}
+}
 
 
 

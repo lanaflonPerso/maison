@@ -3,12 +3,12 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <title>Liste des personnes</title>
 <link rel="stylesheet" href="../static/css/bootstrap.min.css"
-	th:href="@{css/bootstrap.min.css}" />
+	th:href="@{/css/bootstrap.min.css}" />
 <link rel="stylesheet" href="../static/css/style.css"
-	th:href="@{css/style.css}" />
+	th:href="@{/css/style.css}" />
 </head>
 <body>
 	<div th:replace="layout/layout :: contenuEntete"></div>
@@ -18,7 +18,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Editer des personnes</div>
 				<div class="panel-body">
-					<form th:action="@{save}" method="post">
+					<form th:action="@{/admin/save}" method="post">
 						
 						<div class="form-group">
 							<div>
@@ -52,7 +52,7 @@
 								<span th:errors="${pers.age}"></span>
 						</div>
 						<div>
-							<button class="btn btn-primary" type="submit">Save</button>
+							<button class="btn btn-primary btn-block" type="submit">Save</button>
 						</div>
 					</form>
 				</div>

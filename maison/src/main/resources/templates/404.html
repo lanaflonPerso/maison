@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Liste des personnes</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+						th:href="@{css/bootstrap.min.css}">
+</head>
+<body>
+	<div th:replace="layout/layout :: contenuEntete"></div>
+	
+	<div class="container">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Confirmation</div>
+			<div class="panel-body">
+				<h3 class="red">Cette resource n'est pas disponible	</h3>
+			</div>
+	</div>
+	</div>
+	
+	<div th:replace="layout/layout :: contenuBas"></div>
+</body>
+</html>

@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PersRepository extends JpaRepository<Pers, Long>{
 	
-	public Page<Pers> findByNom(String mc, Pageable pageable);
+	public Page<Pers> findByNomContains(String mc, Pageable pageable);
 
 }
