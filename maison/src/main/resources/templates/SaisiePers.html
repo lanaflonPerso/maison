@@ -1,57 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout">
+	layout:decorate="layout">
 <head>
 <meta charset="UTF-8">
 <title>Liste des personnes</title>
-<link rel="stylesheet" href="../static/css/bootstrap.min.css"
-	th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" href="../static/css/style.css"
-	th:href="@{/css/style.css}" />
 </head>
 <body>
-	<div th:replace="layout/layout :: contenuEntete"></div>
 
-	<div class="container">
-		<div class="spacer col-md-6 col-xs-12">
-			<div class="panel panel-default">
-				<div class="panel-heading"><span class="text-primary bg-danger">Saisie des personnes</span></div>
-				<div class="panel-body">
-					<form th:action="@{/admin/save}" method="post" style="margin:50px">
-						<div class="form-group">
-							<div>
-								<label class="control-label">Nom:</label>
+	<div layout:fragment="content1">
+		<div class="container">
+			<div class="spacer col-md-6 col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="text-primary bg-danger">Saisie des personnes</span>
+					</div>
+					<div class="panel-body">
+						<form th:action="@{/admin/save}" method="post" enctype="multipart/form-data"
+							style="margin: 50px">
+							<div class="form-group">
+								<div>
+									<label class="control-label">Nom:</label>
+								</div>
+								<input class="control-control  input-lg" type="text" name="nom"
+									placeholder="votre nom" th:value="${pers.nom}" /> <span
+									class="red" th:errors="${pers.nom}"></span>
 							</div>
-							<input class="control-control  input-lg" type="text" name="nom"
-								placeholder="votre nom" th:value="${pers.nom}" /> <span
-								class="red" th:errors="${pers.nom}"></span>
-						</div>
-						<div class="form-group">
-							<div>
-								<label class="control-label">Prenom:</label>
+							<div class="form-group">
+								<div>
+									<label class="control-label">Prenom:</label>
+								</div>
+								<input class="control-control" type="text" name="prenom"
+									placeholder="votre prenom" th:value="${pers.prenom}" />
 							</div>
-							<input class="control-control" type="text" name="prenom"
-								placeholder="votre prenom" th:value="${pers.prenom}" />
-						</div>
-						<div class="form-group">
-							<div>
-								<label class="control-label">Age:</label>
+							<div class="form-group">
+								<div>
+									<label class="control-label">Age:</label>
+								</div>
+								<input class="control-control" type="text" name="age"
+									placeholder="votre age" th:value="${pers.age}" /> <span
+									th:errors="${pers.age}"></span>
 							</div>
-							<input class="control-control" type="text" name="age"
-								placeholder="votre age" th:value="${pers.age}" /> <span
-								th:errors="${pers.age}"></span>
-						</div>
-						<div>
-							<button class="btn btn-primary btn-block" type="submit"><span class="glyphicon glyphicon-search"></span> Save</button>
-						</div>
-					</form>
+							<div class="form-group">
+								<div>
+									<label class="control-label">Né(e) le :</label>
+								</div>
+								<input class="control-control" type="date" name="dateNaissance"
+									placeholder="Date de naissance" th:value="${pers.dateNaissance}" /> 
+							</div>
+							<div class="form-group">
+								<div>
+									<label class="control-label">Email:</label>
+								</div>
+								<input class="control-control" type="text" name="email"
+									placeholder="votre email" th:value="${pers.email}" /> <span
+									class="text-danger" th:errors="${pers.email}"></span>
+							</div>
+							<div class="form-group">
+								<div>
+									<label class="control-label">Photo:</label>
+								</div>
+								<input class="control-control" type="file" name="picture" /> <span
+									th:errors="${pers.photo}"></span>
+							</div>
+							
+							<div>
+								<button class="btn btn-primary btn-block" type="submit">
+									<span class="glyphicon glyphicon-search"></span> Save
+								</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-
-		<div th:replace="layout/layout :: contenuBas"></div>
-
 	</div>
 
 </body>
