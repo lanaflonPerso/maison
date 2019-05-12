@@ -2,7 +2,6 @@ package org.sid;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.sid.dao.PersRepository;
 import org.sid.entities.Pers;

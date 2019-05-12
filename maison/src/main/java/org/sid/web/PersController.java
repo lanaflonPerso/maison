@@ -1,13 +1,9 @@
 package org.sid.web;
 
-import java.util.Optional;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
@@ -15,7 +11,6 @@ import org.sid.dao.PersRepository;
 import org.sid.entities.Pers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.system.SystemProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
@@ -25,7 +20,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,7 +36,7 @@ public class PersController {
 	@GetMapping("/user/index")
 	public String index(Model model, 
 			@RequestParam(name = "page", defaultValue = "0") int page, 
-			@RequestParam(name = "size", defaultValue = "5") int s,
+			@RequestParam(name = "size", defaultValue = "15") int s,
 			@RequestParam(name = "motCle", defaultValue = "") String mc) {
 			
 		Page<Pers> pagePers = 
@@ -74,21 +68,18 @@ public class PersController {
 	}
 	
 	@PostMapping(value="/admin/save")										//Sauvegarder un enregistrement	
-	public String formSavePers(Model model, @Valid Pers pers, BindingResult bindingResult, @RequestParam(name="picture")MultipartFile file) throws Exception{
+	public String formSavePers(Model model, @Valid Pers pers, BindingResult bindingResult, 
+			@RequestParam(name="picture")MultipartFile file) throws Exception{
 		
 		if (bindingResult.hasErrors()) {
 			return "SaisiePers";
 		}
 		try {
 			if(!(file.isEmpty())) { pers.setPhoto(file.getOriginalFilename()); }			//sauvegarder nom_photo sur notre server de BD
-		} catch (Exception e) {
+		} catch (Exception e) {}
 			
-		}
-				
-		
 		persRepository.save(pers);
 		
-	
 		if(!(file.isEmpty())) {
 			pers.setPhoto(file.getOriginalFilename());
 			file.transferTo(new File(imageDir + pers.getId()));						//sauvegarder photo sur server distant avec id
@@ -97,7 +88,7 @@ public class PersController {
 		return "Confirmation";
 	}
 	
-	@RequestMapping(value = {"/user/getPhoto", "/admin/getPhoto"}, produces=MediaType.IMAGE_JPEG_VALUE)		//la photo sera envoyée en format JPEG
+	@RequestMapping(value = {"/user/getPhoto", "/admin/getPhoto"}, produces = MediaType.IMAGE_JPEG_VALUE)		//la photo sera envoyée en format JPEG
 	@ResponseBody
 	public byte[] getPhoto(Long id) throws Exception {
 		File f = new File(imageDir+id);
@@ -112,9 +103,9 @@ public class PersController {
 		//on supp et on fait une redirection vers la page index
 	}
 	
-	@GetMapping("/")						//home par defaut
+	@GetMapping(value = {"/", "/home", "/Accueil"})						//home par defaut
 	public String home() {
-		return "redirect:/user/index";
+		return "Accueil";
 	}
 	
 	@GetMapping("/403")						//on est authentifié mais on n'a pas le droit
@@ -131,6 +122,17 @@ public class PersController {
 	public String login() {
 		return "login";
 	}
+	
+	@GetMapping(value="/tableau")				//page de connexion
+	public String tableau() {
+		return "tableau";
+	}
+	
+	@GetMapping(value="/intro")				//page de connexion
+	public String intro() {
+		return "intro";
+	}
+
 }
 
 

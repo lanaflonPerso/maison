@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	layout:decorate="layout">
+	layout:decorate="layout/layout">
 <head>
 <meta charset="utf-8">
 <title>Liste des personnes</title>
@@ -15,22 +15,24 @@
 				<div class="panel-heading">Liste des personnes
 					[[${#httpServletRequest.remoteUser}]]</div>
 				<div class="panel-body">
-					<form th:action="@{/user/index}" method="get">
+					<form class="pull-right" th:action="@{/user/index}" method="get">
 						<label>Mot clé</label> <input type=text name="motCle"
 							placeholder="search" th:value="${motCle}">
-						<button type="submit" class="btn btn-success">Search</button>
+						<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</button>
 					</form>
+						<a class="btn btn-success pull-left" th:href="@{/admin/form}"><span class="glyphicon glyphicon-plus"></span> New</a>	
 				</div>
 				<div class="panel-body">
 					<table class="table table-striped">
 						<tr>
-							<th>ID texte</th>
+							<th>ID</th>
 							<th>NOMS</th>
 							<th>PRENOMS</th>
 							<th>AGE</th>
 							<th>NE(E) LE</th>
 							<th>EMAIL</th>
 							<th>PHOTO</th>
+							<th>ACTION</th>
 						</tr>
 						<tr th:each="p:${listPers}">
 							<td th:text="${p.id}"></td>
@@ -42,17 +44,13 @@
 							<td>
 								<img class="img-circle" th:src="@{getPhoto(id=${p.id})}" alt="download picture"  height="50" width="50"/>
 							</td>
-							<td><a class="btn btn-danger"
-								onclick="return confirm('Etes-vous sur de vouloir supprimer ?')"
-								th:href="@{/admin/delete(id=${p.id}, page=${currentPage}, motCle=${motCle})}">Delete</a></td>
+							<td>
+							<a class="btn btn-danger" 
+								th:href="@{/admin/delete(id=${p.id}, page=${currentPage}, motCle=${motCle})}"><span class="glyphicon glyphicon-trash"></span></a>
 
-							<td><a class="btn btn-primary"
+							<a class="btn btn-primary"
 								onclick="return confirm('Etes-vous sur de vouloir modifier ?')"
-								th:href="@{/admin/edit(id=${p.id})}">Editer</a></td>
-								
-								<td><a class="btn btn-primary"
-								onclick="return confirm('Etes-vous sur de vouloir modifier ?')"
-								th:href="@{/admin/edit(id=${p.id})}"><span class="glyphicon glyphicon-trash"></span></a></td>
+								th:href="@{/admin/edit(id=${p.id})}"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						</tr>
 					</table>
 					<ul class="nav nav-pills">
@@ -65,6 +63,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

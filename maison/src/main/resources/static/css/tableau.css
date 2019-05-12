@@ -1,0 +1,10 @@
+.container{overflow: hidden}
+         .tab{float: left;}
+         .tab-2{margin-left: 150px}
+         .tab-2 input{display: block;margin-bottom: 25px}
+         tr{transition:all .25s ease-in-out}
+         tr:hover{background-color:#ff0000;cursor: pointer}
+         
+body {
+    background-color: lightblue;
+}

@@ -6,9 +6,9 @@
 	content="width=device-width, initial-scale=1" />
 <title>Gestion des personnes</title>
 
-<!-- <link rel="stylesheet" type="text/css" -->
-<!-- 	href="../static/css/bootstrap.min.css" -->
-<!-- 	th:href="@{/css/bootstrap.min.css}" /> -->
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
 
 <link rel="stylesheet" type="text/css" href="../static/css/style.css"
 	th:href="@{/css/style.css}" />
@@ -20,18 +20,18 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid" style="background: yellow;">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><b>COTISATIONS</b></a>
+				<a class="navbar-brand" href="#"><b>Gestion des personnes</b></a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li><a><b>Gestion des personnes</b></a></li>
-				<li><a th:href="@{/user/index}">Chercher</a></li>
-				<li><a th:href="@{/admin/form}">Personne</a></li>
+				<!-- <li><a><b>Gestion des personnes</b></a></li> -->
+				<li><a th:href="@{/}"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
+				<li><a th:href="@{/user/index}"><span class="glyphicon glyphicon-list"></span> Membre</a></li>
 				<li><a>Rencontre</a></li>
 			</ul>
 			<ul class="nav navbar-nav pull-right">
-				<li><a th:href="@{/login?logout}" th:inline="text">logout</a> <!-- deconnecter le user connecté -->
+				<li><a th:href="@{/login?logout}" th:inline="text"><span class="glyphicon glyphicon-off"></span> logout</a> <!-- deconnecter le user connecté -->
 				</li>
-				<li><a>[[${#httpServletRequest.remoteUser}]]</a></li>
+				<li><a><span class="glyphicon glyphicon-user"></span> [[${#httpServletRequest.remoteUser}]]</a></li>
 				<!-- affiche le nom du user connecté -->
 			</ul>
 		</div>
